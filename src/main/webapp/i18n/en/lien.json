@@ -1,0 +1,30 @@
+{
+  "mobbApp": {
+    "lien": {
+      "home": {
+        "title": "Liens",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Lien",
+        "createOrEditLabel": "Create or edit a Lien",
+        "notFound": "No Liens found"
+      },
+      "created": "A new Lien is created with identifier {{ param }}",
+      "updated": "A Lien is updated with identifier {{ param }}",
+      "deleted": "A Lien is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Lien {{ id }}?"
+      },
+      "detail": {
+        "title": "Lien"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "icone": "Icone",
+      "absisce": "Absisce",
+      "ordonnee": "Ordonnee",
+      "arriereplan": "Arriereplan",
+      "villeOrigine": "Ville Origine",
+      "villeCible": "Ville Cible"
+    }
+  }
+}

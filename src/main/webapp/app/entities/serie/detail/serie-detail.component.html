@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="serie">
+      <h2 data-cy="serieDetailsHeading"><span jhiTranslate="mobbApp.serie.detail.title">Serie</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ serie.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.serie.nom">Nom</span></dt>
+        <dd>
+          <span>{{ serie.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.serie.images">Images</span></dt>
+        <dd>
+          <div *ngIf="serie.images">
+            <a (click)="openFile(serie.images, serie.imagesContentType)">
+              <img [src]="'data:' + serie.imagesContentType + ';base64,' + serie.images" style="max-width: 100%" alt="serie image" />
+            </a>
+            {{ serie.imagesContentType }}, {{ byteSize(serie.images) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.serie.description">Description</span></dt>
+        <dd>
+          <span>{{ serie.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/serie', serie.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

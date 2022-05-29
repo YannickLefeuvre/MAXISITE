@@ -1,0 +1,85 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-application-user-heading"
+        data-cy="ApplicationUserCreateUpdateHeading"
+        jhiTranslate="mobbApp.applicationUser.home.createOrEditLabel"
+      >
+        Create or edit a Application User
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.applicationUser.photoprincipal" for="field_photoprincipal">Photoprincipal</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('photoprincipalContentType')!.value + ';base64,' + editForm.get('photoprincipal')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('photoprincipal')!.value"
+              alt="applicationUser image"
+            />
+            <div *ngIf="editForm.get('photoprincipal')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('photoprincipalContentType')!.value }}, {{ byteSize(editForm.get('photoprincipal')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('photoprincipal', 'photoprincipalContentType', 'file_photoprincipal')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_photoprincipal"
+              data-cy="photoprincipal"
+              (change)="setFileData($event, 'photoprincipal', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="photoprincipal"
+            id="field_photoprincipal"
+            data-cy="photoprincipal"
+            formControlName="photoprincipal"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="photoprincipalContentType"
+            id="field_photoprincipalContentType"
+            formControlName="photoprincipalContentType"
+          />
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

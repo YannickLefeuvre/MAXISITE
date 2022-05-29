@@ -1,0 +1,77 @@
+<div>
+  <h2 id="page-heading" data-cy="LivreHeading">
+    <span jhiTranslate="mobbApp.livre.home.title">Livres</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="mobbApp.livre.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-livre"
+        [routerLink]="['/livre/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="mobbApp.livre.home.createLabel"> Create a new Livre </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="livres?.length === 0">
+    <span jhiTranslate="mobbApp.livre.home.notFound">No livres found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="livres && livres.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.livre.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.livre.images">Images</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.livre.description">Description</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let livre of livres; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/livre', livre.id, 'view']">{{ livre.id }}</a>
+          </td>
+          <td>{{ livre.nom }}</td>
+          <td>
+            <a *ngIf="livre.images" (click)="openFile(livre.images, livre.imagesContentType)">
+              <img [src]="'data:' + livre.imagesContentType + ';base64,' + livre.images" style="max-height: 30px" alt="livre image" />
+            </a>
+            <span *ngIf="livre.images">{{ livre.imagesContentType }}, {{ byteSize(livre.images) }}</span>
+          </td>
+          <td>{{ livre.description }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/livre', livre.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/livre', livre.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(livre)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="film">
+      <h2 data-cy="filmDetailsHeading"><span jhiTranslate="mobbApp.film.detail.title">Film</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ film.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.film.nom">Nom</span></dt>
+        <dd>
+          <span>{{ film.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.film.images">Images</span></dt>
+        <dd>
+          <div *ngIf="film.images">
+            <a (click)="openFile(film.images, film.imagesContentType)">
+              <img [src]="'data:' + film.imagesContentType + ';base64,' + film.images" style="max-width: 100%" alt="film image" />
+            </a>
+            {{ film.imagesContentType }}, {{ byteSize(film.images) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.film.description">Description</span></dt>
+        <dd>
+          <span>{{ film.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/film', film.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

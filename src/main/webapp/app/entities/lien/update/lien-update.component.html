@@ -1,0 +1,165 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-lien-heading" data-cy="LienCreateUpdateHeading" jhiTranslate="mobbApp.lien.home.createOrEditLabel">
+        Create or edit a Lien
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.icone" for="field_icone">Icone</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('iconeContentType')!.value + ';base64,' + editForm.get('icone')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('icone')!.value"
+              alt="lien image"
+            />
+            <div *ngIf="editForm.get('icone')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start">{{ editForm.get('iconeContentType')!.value }}, {{ byteSize(editForm.get('icone')!.value) }}</span>
+              <button
+                type="button"
+                (click)="clearInputImage('icone', 'iconeContentType', 'file_icone')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_icone"
+              data-cy="icone"
+              (change)="setFileData($event, 'icone', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input type="hidden" class="form-control" name="icone" id="field_icone" data-cy="icone" formControlName="icone" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="iconeContentType"
+            id="field_iconeContentType"
+            formControlName="iconeContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.absisce" for="field_absisce">Absisce</label>
+          <input type="number" class="form-control" name="absisce" id="field_absisce" data-cy="absisce" formControlName="absisce" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.ordonnee" for="field_ordonnee">Ordonnee</label>
+          <input type="number" class="form-control" name="ordonnee" id="field_ordonnee" data-cy="ordonnee" formControlName="ordonnee" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.arriereplan" for="field_arriereplan">Arriereplan</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('arriereplanContentType')!.value + ';base64,' + editForm.get('arriereplan')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('arriereplan')!.value"
+              alt="lien image"
+            />
+            <div *ngIf="editForm.get('arriereplan')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('arriereplanContentType')!.value }}, {{ byteSize(editForm.get('arriereplan')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('arriereplan', 'arriereplanContentType', 'file_arriereplan')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_arriereplan"
+              data-cy="arriereplan"
+              (change)="setFileData($event, 'arriereplan', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="arriereplan"
+            id="field_arriereplan"
+            data-cy="arriereplan"
+            formControlName="arriereplan"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="arriereplanContentType"
+            id="field_arriereplanContentType"
+            formControlName="arriereplanContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.villeOrigine" for="field_villeOrigine">Ville Origine</label>
+          <select class="form-control" id="field_villeOrigine" data-cy="villeOrigine" name="villeOrigine" formControlName="villeOrigine">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="villeOption.id === editForm.get('villeOrigine')!.value?.id ? editForm.get('villeOrigine')!.value : villeOption"
+              *ngFor="let villeOption of villeOriginesCollection; trackBy: trackVilleById"
+            >
+              {{ villeOption.id }}
+            </option>
+          </select>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.lien.villeCible" for="field_villeCible">Ville Cible</label>
+          <select class="form-control" id="field_villeCible" data-cy="villeCible" name="villeCible" formControlName="villeCible">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="villeOption.id === editForm.get('villeCible')!.value?.id ? editForm.get('villeCible')!.value : villeOption"
+              *ngFor="let villeOption of villeCiblesCollection; trackBy: trackVilleById"
+            >
+              {{ villeOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

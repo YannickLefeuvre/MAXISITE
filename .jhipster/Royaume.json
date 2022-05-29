@@ -1,0 +1,45 @@
+{
+  "applications": ["MOBB"],
+  "changelogDate": "20220529123311",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "royaume",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "regles",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "arriereplan",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "isPublic",
+      "fieldType": "Boolean"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Royaume",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "ville",
+      "otherEntityRelationshipName": "royaume",
+      "relationshipName": "ville",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "service": "no"
+}

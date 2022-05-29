@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="albumPhoto">
+      <h2 data-cy="albumPhotoDetailsHeading"><span jhiTranslate="mobbApp.albumPhoto.detail.title">Album Photo</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ albumPhoto.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.albumPhoto.nom">Nom</span></dt>
+        <dd>
+          <span>{{ albumPhoto.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.albumPhoto.images">Images</span></dt>
+        <dd>
+          <div *ngIf="albumPhoto.images">
+            <a (click)="openFile(albumPhoto.images, albumPhoto.imagesContentType)">
+              <img
+                [src]="'data:' + albumPhoto.imagesContentType + ';base64,' + albumPhoto.images"
+                style="max-width: 100%"
+                alt="albumPhoto image"
+              />
+            </a>
+            {{ albumPhoto.imagesContentType }}, {{ byteSize(albumPhoto.images) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.albumPhoto.description">Description</span></dt>
+        <dd>
+          <span>{{ albumPhoto.description }}</span>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/album-photo', albumPhoto.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

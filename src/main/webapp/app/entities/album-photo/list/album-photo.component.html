@@ -1,0 +1,91 @@
+<div>
+  <h2 id="page-heading" data-cy="AlbumPhotoHeading">
+    <span jhiTranslate="mobbApp.albumPhoto.home.title">Album Photos</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="mobbApp.albumPhoto.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-album-photo"
+        [routerLink]="['/album-photo/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="mobbApp.albumPhoto.home.createLabel"> Create a new Album Photo </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="albumPhotos?.length === 0">
+    <span jhiTranslate="mobbApp.albumPhoto.home.notFound">No albumPhotos found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="albumPhotos && albumPhotos.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.albumPhoto.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.albumPhoto.images">Images</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.albumPhoto.description">Description</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let albumPhoto of albumPhotos; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/album-photo', albumPhoto.id, 'view']">{{ albumPhoto.id }}</a>
+          </td>
+          <td>{{ albumPhoto.nom }}</td>
+          <td>
+            <a *ngIf="albumPhoto.images" (click)="openFile(albumPhoto.images, albumPhoto.imagesContentType)">
+              <img
+                [src]="'data:' + albumPhoto.imagesContentType + ';base64,' + albumPhoto.images"
+                style="max-height: 30px"
+                alt="albumPhoto image"
+              />
+            </a>
+            <span *ngIf="albumPhoto.images">{{ albumPhoto.imagesContentType }}, {{ byteSize(albumPhoto.images) }}</span>
+          </td>
+          <td>{{ albumPhoto.description }}</td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/album-photo', albumPhoto.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/album-photo', albumPhoto.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(albumPhoto)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

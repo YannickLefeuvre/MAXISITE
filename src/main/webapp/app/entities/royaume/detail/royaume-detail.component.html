@@ -1,0 +1,63 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="royaume">
+      <h2 data-cy="royaumeDetailsHeading"><span jhiTranslate="mobbApp.royaume.detail.title">Royaume</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ royaume.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.nom">Nom</span></dt>
+        <dd>
+          <span>{{ royaume.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.description">Description</span></dt>
+        <dd>
+          <span>{{ royaume.description }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.regles">Regles</span></dt>
+        <dd>
+          <span>{{ royaume.regles }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.arriereplan">Arriereplan</span></dt>
+        <dd>
+          <div *ngIf="royaume.arriereplan">
+            <a (click)="openFile(royaume.arriereplan, royaume.arriereplanContentType)">
+              <img
+                [src]="'data:' + royaume.arriereplanContentType + ';base64,' + royaume.arriereplan"
+                style="max-width: 100%"
+                alt="royaume image"
+              />
+            </a>
+            {{ royaume.arriereplanContentType }}, {{ byteSize(royaume.arriereplan) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.isPublic">Is Public</span></dt>
+        <dd>
+          <span>{{ royaume.isPublic }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.royaume.ville">Ville</span></dt>
+        <dd>
+          <div *ngIf="royaume.ville">
+            <a [routerLink]="['/ville', royaume.ville?.id, 'view']">{{ royaume.ville?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/royaume', royaume.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

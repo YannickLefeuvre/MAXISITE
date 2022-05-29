@@ -1,0 +1,124 @@
+
+application {
+  config {
+    baseName MOBB,
+    applicationType monolith,
+    authenticationType jwt,
+    serverPort 9001,
+    prodDatabaseType postgresql,
+    buildTool maven,
+    clientFramework angularX,
+    clientPackageManager npm
+  }
+  entities *
+}
+
+entity Film {
+	nom String required,
+    images ImageBlob,
+    description String 
+}
+
+entity Royaume {
+	nom String required,
+    description String,
+    regles String,
+    arriereplan ImageBlob,
+    isPublic Boolean
+}
+
+entity ApplicationUser {
+  photoprincipal ImageBlob
+}
+
+
+entity Serie {
+	nom String required,
+    images ImageBlob,
+    description String
+}
+
+entity Livre {
+	nom String required,
+    images ImageBlob,
+    description String 
+}
+
+entity AlbumPhoto {
+	nom String required,
+    images ImageBlob,
+    description String 
+}
+
+entity Photo {
+	nom String required,
+    images ImageBlob,
+    description String 
+}
+
+entity Video {
+	nom String required,
+    url String
+}
+
+entity Audio {
+	nom String required,
+    url String
+}
+
+entity Ville {
+	nom String required,
+    isCapital Boolean required,
+    icone ImageBlob,
+    absisce Integer,
+    ordonnee Integer,
+    arriereplan ImageBlob
+}
+
+entity Maison {
+	nom String required,
+    icone ImageBlob,
+    absisce Integer,
+    ordonnee Integer,
+    arriereplan ImageBlob,
+}
+
+entity Lien {
+	nom String required,
+    icone ImageBlob,
+    absisce Integer,
+    ordonnee Integer,
+    arriereplan ImageBlob
+}
+
+relationship ManyToOne {
+
+    Royaume{ville} to Ville,
+    Ville{lien} to Lien,
+    Ville{maison} to Maison
+//    Ville{photo} to Photo,
+//    Ville{film} to Film,
+//    Ville{serie} to Serie,
+//    Ville{Livre} to Livre,
+//    Ville{albumPhoto} to AlbumPhoto,
+}
+
+relationship OneToOne {
+    Lien{villeOrigine} to Ville{LienOrigine},
+    Lien{villeCible} to Ville{LienCible}
+}
+
+// defining multiple oneToOne relationships
+
+// Set pagination options
+//paginate JobHistory, Employee with infinite-scroll
+//paginate Job with pagination
+
+// Use Data Transfer Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+//service all with serviceImpl except Employee, Job
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

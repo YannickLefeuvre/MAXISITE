@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+    <!--
+        Added the constraints for entity Ville.
+    -->
+    <changeSet id="20220529124111-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="lien_id"
+                                 baseTableName="ville"
+                                 constraintName="fk_ville__lien_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="lien"/>
+
+        <addForeignKeyConstraint baseColumnNames="maison_id"
+                                 baseTableName="ville"
+                                 constraintName="fk_ville__maison_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="maison"/>
+    </changeSet>
+</databaseChangeLog>

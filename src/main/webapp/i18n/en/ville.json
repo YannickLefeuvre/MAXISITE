@@ -1,0 +1,33 @@
+{
+  "mobbApp": {
+    "ville": {
+      "home": {
+        "title": "Villes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Ville",
+        "createOrEditLabel": "Create or edit a Ville",
+        "notFound": "No Villes found"
+      },
+      "created": "A new Ville is created with identifier {{ param }}",
+      "updated": "A Ville is updated with identifier {{ param }}",
+      "deleted": "A Ville is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Ville {{ id }}?"
+      },
+      "detail": {
+        "title": "Ville"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "isCapital": "Is Capital",
+      "icone": "Icone",
+      "absisce": "Absisce",
+      "ordonnee": "Ordonnee",
+      "arriereplan": "Arriereplan",
+      "lien": "Lien",
+      "maison": "Maison",
+      "lienOrigine": "Lien Origine",
+      "lienCible": "Lien Cible"
+    }
+  }
+}

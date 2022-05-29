@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="maison">
+      <h2 data-cy="maisonDetailsHeading"><span jhiTranslate="mobbApp.maison.detail.title">Maison</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ maison.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.maison.nom">Nom</span></dt>
+        <dd>
+          <span>{{ maison.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.maison.icone">Icone</span></dt>
+        <dd>
+          <div *ngIf="maison.icone">
+            <a (click)="openFile(maison.icone, maison.iconeContentType)">
+              <img [src]="'data:' + maison.iconeContentType + ';base64,' + maison.icone" style="max-width: 100%" alt="maison image" />
+            </a>
+            {{ maison.iconeContentType }}, {{ byteSize(maison.icone) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.maison.absisce">Absisce</span></dt>
+        <dd>
+          <span>{{ maison.absisce }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.maison.ordonnee">Ordonnee</span></dt>
+        <dd>
+          <span>{{ maison.ordonnee }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.maison.arriereplan">Arriereplan</span></dt>
+        <dd>
+          <div *ngIf="maison.arriereplan">
+            <a (click)="openFile(maison.arriereplan, maison.arriereplanContentType)">
+              <img
+                [src]="'data:' + maison.arriereplanContentType + ';base64,' + maison.arriereplan"
+                style="max-width: 100%"
+                alt="maison image"
+              />
+            </a>
+            {{ maison.arriereplanContentType }}, {{ byteSize(maison.arriereplan) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/maison', maison.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

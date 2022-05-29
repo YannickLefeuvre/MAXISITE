@@ -1,0 +1,29 @@
+{
+  "mobbApp": {
+    "royaume": {
+      "home": {
+        "title": "Royaumes",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Royaume",
+        "createOrEditLabel": "Create or edit a Royaume",
+        "notFound": "No Royaumes found"
+      },
+      "created": "A new Royaume is created with identifier {{ param }}",
+      "updated": "A Royaume is updated with identifier {{ param }}",
+      "deleted": "A Royaume is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Royaume {{ id }}?"
+      },
+      "detail": {
+        "title": "Royaume"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "description": "Description",
+      "regles": "Regles",
+      "arriereplan": "Arriereplan",
+      "isPublic": "Is Public",
+      "ville": "Ville"
+    }
+  }
+}

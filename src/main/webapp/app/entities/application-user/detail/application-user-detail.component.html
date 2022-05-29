@@ -1,0 +1,41 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="applicationUser">
+      <h2 data-cy="applicationUserDetailsHeading"><span jhiTranslate="mobbApp.applicationUser.detail.title">Application User</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ applicationUser.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.applicationUser.photoprincipal">Photoprincipal</span></dt>
+        <dd>
+          <div *ngIf="applicationUser.photoprincipal">
+            <a (click)="openFile(applicationUser.photoprincipal, applicationUser.photoprincipalContentType)">
+              <img
+                [src]="'data:' + applicationUser.photoprincipalContentType + ';base64,' + applicationUser.photoprincipal"
+                style="max-width: 100%"
+                alt="applicationUser image"
+              />
+            </a>
+            {{ applicationUser.photoprincipalContentType }}, {{ byteSize(applicationUser.photoprincipal) }}
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/application-user', applicationUser.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

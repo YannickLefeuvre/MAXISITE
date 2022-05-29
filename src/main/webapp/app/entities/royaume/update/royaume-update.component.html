@@ -1,0 +1,126 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" role="form" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-royaume-heading" data-cy="RoyaumeCreateUpdateHeading" jhiTranslate="mobbApp.royaume.home.createOrEditLabel">
+        Create or edit a Royaume
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        <div class="row mb-3" [hidden]="editForm.get('id')!.value == null">
+          <label class="form-label" jhiTranslate="global.field.id" for="field_id">ID</label>
+          <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.nom" for="field_nom">Nom</label>
+          <input type="text" class="form-control" name="nom" id="field_nom" data-cy="nom" formControlName="nom" />
+          <div *ngIf="editForm.get('nom')!.invalid && (editForm.get('nom')!.dirty || editForm.get('nom')!.touched)">
+            <small class="form-text text-danger" *ngIf="editForm.get('nom')?.errors?.required" jhiTranslate="entity.validation.required">
+              This field is required.
+            </small>
+          </div>
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.description" for="field_description">Description</label>
+          <input
+            type="text"
+            class="form-control"
+            name="description"
+            id="field_description"
+            data-cy="description"
+            formControlName="description"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.regles" for="field_regles">Regles</label>
+          <input type="text" class="form-control" name="regles" id="field_regles" data-cy="regles" formControlName="regles" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.arriereplan" for="field_arriereplan">Arriereplan</label>
+          <div>
+            <img
+              [src]="'data:' + editForm.get('arriereplanContentType')!.value + ';base64,' + editForm.get('arriereplan')!.value"
+              style="max-height: 100px"
+              *ngIf="editForm.get('arriereplan')!.value"
+              alt="royaume image"
+            />
+            <div *ngIf="editForm.get('arriereplan')!.value" class="form-text text-danger clearfix">
+              <span class="pull-start"
+                >{{ editForm.get('arriereplanContentType')!.value }}, {{ byteSize(editForm.get('arriereplan')!.value) }}</span
+              >
+              <button
+                type="button"
+                (click)="clearInputImage('arriereplan', 'arriereplanContentType', 'file_arriereplan')"
+                class="btn btn-secondary btn-xs pull-end"
+              >
+                <fa-icon icon="times"></fa-icon>
+              </button>
+            </div>
+            <input
+              type="file"
+              id="file_arriereplan"
+              data-cy="arriereplan"
+              (change)="setFileData($event, 'arriereplan', true)"
+              accept="image/*"
+              jhiTranslate="entity.action.addimage"
+            />
+          </div>
+          <input
+            type="hidden"
+            class="form-control"
+            name="arriereplan"
+            id="field_arriereplan"
+            data-cy="arriereplan"
+            formControlName="arriereplan"
+          />
+          <input
+            type="hidden"
+            class="form-control"
+            name="arriereplanContentType"
+            id="field_arriereplanContentType"
+            formControlName="arriereplanContentType"
+          />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.isPublic" for="field_isPublic">Is Public</label>
+          <input type="checkbox" class="form-check" name="isPublic" id="field_isPublic" data-cy="isPublic" formControlName="isPublic" />
+        </div>
+
+        <div class="row mb-3">
+          <label class="form-label" jhiTranslate="mobbApp.royaume.ville" for="field_ville">Ville</label>
+          <select class="form-control" id="field_ville" data-cy="ville" name="ville" formControlName="ville">
+            <option [ngValue]="null"></option>
+            <option
+              [ngValue]="villeOption.id === editForm.get('ville')!.value?.id ? editForm.get('ville')!.value : villeOption"
+              *ngFor="let villeOption of villesSharedCollection; trackBy: trackVilleById"
+            >
+              {{ villeOption.id }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

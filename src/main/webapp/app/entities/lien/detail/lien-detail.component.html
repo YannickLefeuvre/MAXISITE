@@ -1,0 +1,70 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="lien">
+      <h2 data-cy="lienDetailsHeading"><span jhiTranslate="mobbApp.lien.detail.title">Lien</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ lien.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.nom">Nom</span></dt>
+        <dd>
+          <span>{{ lien.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.icone">Icone</span></dt>
+        <dd>
+          <div *ngIf="lien.icone">
+            <a (click)="openFile(lien.icone, lien.iconeContentType)">
+              <img [src]="'data:' + lien.iconeContentType + ';base64,' + lien.icone" style="max-width: 100%" alt="lien image" />
+            </a>
+            {{ lien.iconeContentType }}, {{ byteSize(lien.icone) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.absisce">Absisce</span></dt>
+        <dd>
+          <span>{{ lien.absisce }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.ordonnee">Ordonnee</span></dt>
+        <dd>
+          <span>{{ lien.ordonnee }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.arriereplan">Arriereplan</span></dt>
+        <dd>
+          <div *ngIf="lien.arriereplan">
+            <a (click)="openFile(lien.arriereplan, lien.arriereplanContentType)">
+              <img [src]="'data:' + lien.arriereplanContentType + ';base64,' + lien.arriereplan" style="max-width: 100%" alt="lien image" />
+            </a>
+            {{ lien.arriereplanContentType }}, {{ byteSize(lien.arriereplan) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.villeOrigine">Ville Origine</span></dt>
+        <dd>
+          <div *ngIf="lien.villeOrigine">
+            <a [routerLink]="['/ville', lien.villeOrigine?.id, 'view']">{{ lien.villeOrigine?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.lien.villeCible">Ville Cible</span></dt>
+        <dd>
+          <div *ngIf="lien.villeCible">
+            <a [routerLink]="['/ville', lien.villeCible?.id, 'view']">{{ lien.villeCible?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/lien', lien.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>

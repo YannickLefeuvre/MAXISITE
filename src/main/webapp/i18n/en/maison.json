@@ -1,0 +1,28 @@
+{
+  "mobbApp": {
+    "maison": {
+      "home": {
+        "title": "Maisons",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Maison",
+        "createOrEditLabel": "Create or edit a Maison",
+        "notFound": "No Maisons found"
+      },
+      "created": "A new Maison is created with identifier {{ param }}",
+      "updated": "A Maison is updated with identifier {{ param }}",
+      "deleted": "A Maison is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Maison {{ id }}?"
+      },
+      "detail": {
+        "title": "Maison"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "icone": "Icone",
+      "absisce": "Absisce",
+      "ordonnee": "Ordonnee",
+      "arriereplan": "Arriereplan"
+    }
+  }
+}

@@ -1,0 +1,101 @@
+<div>
+  <h2 id="page-heading" data-cy="RoyaumeHeading">
+    <span jhiTranslate="mobbApp.royaume.home.title">Royaumes</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="mobbApp.royaume.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-royaume"
+        [routerLink]="['/royaume/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="mobbApp.royaume.home.createLabel"> Create a new Royaume </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="royaumes?.length === 0">
+    <span jhiTranslate="mobbApp.royaume.home.notFound">No royaumes found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="royaumes && royaumes.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.description">Description</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.regles">Regles</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.arriereplan">Arriereplan</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.isPublic">Is Public</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.royaume.ville">Ville</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let royaume of royaumes; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/royaume', royaume.id, 'view']">{{ royaume.id }}</a>
+          </td>
+          <td>{{ royaume.nom }}</td>
+          <td>{{ royaume.description }}</td>
+          <td>{{ royaume.regles }}</td>
+          <td>
+            <a *ngIf="royaume.arriereplan" (click)="openFile(royaume.arriereplan, royaume.arriereplanContentType)">
+              <img
+                [src]="'data:' + royaume.arriereplanContentType + ';base64,' + royaume.arriereplan"
+                style="max-height: 30px"
+                alt="royaume image"
+              />
+            </a>
+            <span *ngIf="royaume.arriereplan">{{ royaume.arriereplanContentType }}, {{ byteSize(royaume.arriereplan) }}</span>
+          </td>
+          <td>{{ royaume.isPublic }}</td>
+          <td>
+            <div *ngIf="royaume.ville">
+              <a [routerLink]="['/ville', royaume.ville?.id, 'view']">{{ royaume.ville?.id }}</a>
+            </div>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button
+                type="submit"
+                [routerLink]="['/royaume', royaume.id, 'view']"
+                class="btn btn-info btn-sm"
+                data-cy="entityDetailsButton"
+              >
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button
+                type="submit"
+                [routerLink]="['/royaume', royaume.id, 'edit']"
+                class="btn btn-primary btn-sm"
+                data-cy="entityEditButton"
+              >
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(royaume)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

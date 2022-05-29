@@ -1,0 +1,71 @@
+{
+  "applications": ["MOBB"],
+  "changelogDate": "20220529124111",
+  "dto": "no",
+  "embedded": false,
+  "entityTableName": "ville",
+  "fields": [
+    {
+      "fieldName": "nom",
+      "fieldType": "String",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "isCapital",
+      "fieldType": "Boolean",
+      "fieldValidateRules": ["required"]
+    },
+    {
+      "fieldName": "icone",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    },
+    {
+      "fieldName": "absisce",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "ordonnee",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "arriereplan",
+      "fieldType": "byte[]",
+      "fieldTypeBlobContent": "image"
+    }
+  ],
+  "fluentMethods": true,
+  "jpaMetamodelFiltering": false,
+  "name": "Ville",
+  "pagination": "no",
+  "readOnly": false,
+  "relationships": [
+    {
+      "otherEntityName": "lien",
+      "otherEntityRelationshipName": "ville",
+      "relationshipName": "lien",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "maison",
+      "otherEntityRelationshipName": "ville",
+      "relationshipName": "maison",
+      "relationshipType": "many-to-one"
+    },
+    {
+      "otherEntityName": "lien",
+      "otherEntityRelationshipName": "villeOrigine",
+      "ownerSide": false,
+      "relationshipName": "lienOrigine",
+      "relationshipType": "one-to-one"
+    },
+    {
+      "otherEntityName": "lien",
+      "otherEntityRelationshipName": "villeCible",
+      "ownerSide": false,
+      "relationshipName": "lienCible",
+      "relationshipType": "one-to-one"
+    }
+  ],
+  "service": "no"
+}

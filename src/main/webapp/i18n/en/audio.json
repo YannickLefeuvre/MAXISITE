@@ -1,0 +1,25 @@
+{
+  "mobbApp": {
+    "audio": {
+      "home": {
+        "title": "Audio",
+        "refreshListLabel": "Refresh list",
+        "createLabel": "Create a new Audio",
+        "createOrEditLabel": "Create or edit a Audio",
+        "notFound": "No Audio found"
+      },
+      "created": "A new Audio is created with identifier {{ param }}",
+      "updated": "A Audio is updated with identifier {{ param }}",
+      "deleted": "A Audio is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Audio {{ id }}?"
+      },
+      "detail": {
+        "title": "Audio"
+      },
+      "id": "ID",
+      "nom": "Nom",
+      "url": "Url"
+    }
+  }
+}

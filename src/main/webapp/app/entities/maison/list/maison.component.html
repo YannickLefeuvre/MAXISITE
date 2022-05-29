@@ -1,0 +1,90 @@
+<div>
+  <h2 id="page-heading" data-cy="MaisonHeading">
+    <span jhiTranslate="mobbApp.maison.home.title">Maisons</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="loadAll()" [disabled]="isLoading">
+        <fa-icon icon="sync" [spin]="isLoading"></fa-icon>
+        <span jhiTranslate="mobbApp.maison.home.refreshListLabel">Refresh List</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-maison"
+        [routerLink]="['/maison/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="mobbApp.maison.home.createLabel"> Create a new Maison </span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  <div class="alert alert-warning" id="no-result" *ngIf="maisons?.length === 0">
+    <span jhiTranslate="mobbApp.maison.home.notFound">No maisons found</span>
+  </div>
+
+  <div class="table-responsive" id="entities" *ngIf="maisons && maisons.length > 0">
+    <table class="table table-striped" aria-describedby="page-heading">
+      <thead>
+        <tr>
+          <th scope="col"><span jhiTranslate="global.field.id">ID</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.maison.nom">Nom</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.maison.icone">Icone</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.maison.absisce">Absisce</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.maison.ordonnee">Ordonnee</span></th>
+          <th scope="col"><span jhiTranslate="mobbApp.maison.arriereplan">Arriereplan</span></th>
+          <th scope="col"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let maison of maisons; trackBy: trackId" data-cy="entityTable">
+          <td>
+            <a [routerLink]="['/maison', maison.id, 'view']">{{ maison.id }}</a>
+          </td>
+          <td>{{ maison.nom }}</td>
+          <td>
+            <a *ngIf="maison.icone" (click)="openFile(maison.icone, maison.iconeContentType)">
+              <img [src]="'data:' + maison.iconeContentType + ';base64,' + maison.icone" style="max-height: 30px" alt="maison image" />
+            </a>
+            <span *ngIf="maison.icone">{{ maison.iconeContentType }}, {{ byteSize(maison.icone) }}</span>
+          </td>
+          <td>{{ maison.absisce }}</td>
+          <td>{{ maison.ordonnee }}</td>
+          <td>
+            <a *ngIf="maison.arriereplan" (click)="openFile(maison.arriereplan, maison.arriereplanContentType)">
+              <img
+                [src]="'data:' + maison.arriereplanContentType + ';base64,' + maison.arriereplan"
+                style="max-height: 30px"
+                alt="maison image"
+              />
+            </a>
+            <span *ngIf="maison.arriereplan">{{ maison.arriereplanContentType }}, {{ byteSize(maison.arriereplan) }}</span>
+          </td>
+          <td class="text-end">
+            <div class="btn-group">
+              <button type="submit" [routerLink]="['/maison', maison.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+              </button>
+
+              <button type="submit" [routerLink]="['/maison', maison.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+              </button>
+
+              <button type="submit" (click)="delete(maison)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

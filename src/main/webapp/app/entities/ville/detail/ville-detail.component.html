@@ -1,0 +1,78 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <div *ngIf="ville">
+      <h2 data-cy="villeDetailsHeading"><span jhiTranslate="mobbApp.ville.detail.title">Ville</span></h2>
+
+      <hr />
+
+      <jhi-alert-error></jhi-alert-error>
+
+      <jhi-alert></jhi-alert>
+
+      <dl class="row-md jh-entity-details">
+        <dt><span jhiTranslate="global.field.id">ID</span></dt>
+        <dd>
+          <span>{{ ville.id }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.nom">Nom</span></dt>
+        <dd>
+          <span>{{ ville.nom }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.isCapital">Is Capital</span></dt>
+        <dd>
+          <span>{{ ville.isCapital }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.icone">Icone</span></dt>
+        <dd>
+          <div *ngIf="ville.icone">
+            <a (click)="openFile(ville.icone, ville.iconeContentType)">
+              <img [src]="'data:' + ville.iconeContentType + ';base64,' + ville.icone" style="max-width: 100%" alt="ville image" />
+            </a>
+            {{ ville.iconeContentType }}, {{ byteSize(ville.icone) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.absisce">Absisce</span></dt>
+        <dd>
+          <span>{{ ville.absisce }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.ordonnee">Ordonnee</span></dt>
+        <dd>
+          <span>{{ ville.ordonnee }}</span>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.arriereplan">Arriereplan</span></dt>
+        <dd>
+          <div *ngIf="ville.arriereplan">
+            <a (click)="openFile(ville.arriereplan, ville.arriereplanContentType)">
+              <img
+                [src]="'data:' + ville.arriereplanContentType + ';base64,' + ville.arriereplan"
+                style="max-width: 100%"
+                alt="ville image"
+              />
+            </a>
+            {{ ville.arriereplanContentType }}, {{ byteSize(ville.arriereplan) }}
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.lien">Lien</span></dt>
+        <dd>
+          <div *ngIf="ville.lien">
+            <a [routerLink]="['/lien', ville.lien?.id, 'view']">{{ ville.lien?.id }}</a>
+          </div>
+        </dd>
+        <dt><span jhiTranslate="mobbApp.ville.maison">Maison</span></dt>
+        <dd>
+          <div *ngIf="ville.maison">
+            <a [routerLink]="['/maison', ville.maison?.id, 'view']">{{ ville.maison?.id }}</a>
+          </div>
+        </dd>
+      </dl>
+
+      <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+        <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+      </button>
+
+      <button type="button" [routerLink]="['/ville', ville.id, 'edit']" class="btn btn-primary">
+        <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+      </button>
+    </div>
+  </div>
+</div>
